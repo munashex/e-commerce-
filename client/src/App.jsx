@@ -1,40 +1,26 @@
-import data from "./data"
+import {BrowserRouter, Routes, Route, Link} from 'react-router-dom'
+import Homescreen from "./screens/Homescreen" 
+import Productscreen from "./screens/Productscreen"
 
 
 const App = () => {
 
   return (
-    <div> 
-
+    <BrowserRouter>
+    <div>
 <header className="bg-gray-700 p-3">
-  <a href="/" className="text-white font-bold">munashe store</a>
+  <Link to="/" className="text-white font-bold text-lg md:text-xl">Munashex</Link>
 </header>  
 
 <main> 
-  <h1 className="p-3">Featured Products</h1>   
-
-<div className="flex flex-wrap gap-1 justify-center">
-{
-  data.products.map((product) => (
-    <div key={product.slug} class="border border-gray-200">
-      <a href={`/product/${product.slug}`}>
-     <img src={product.image} alt={product.name} className="w-[100%] max-w-[400px]"/> 
-    </a>
-
-    <div class="p-3"> 
-    <a href={`/product/${product.slug}`}>
-    <p>{product.name}</p>  
-    </a>
-     <p>$ <strong>{product.price}</strong></p> 
-     <button class="bg-black text-white  hover:bg-blue-400 hover:text-black p-1 rounded-md">Add to cart</button>
-    </div> 
-
-    </div>
-  ))
- }
-</div>
+  <Routes>
+    <Route path="" element={<Homescreen/>}/> 
+    <Route path="/product/:slug" element={<Productscreen/>}/>
+  </Routes>
+ 
 </main>
-    </div>
+    </div> 
+    </BrowserRouter>
   )
 }
  
