@@ -1,9 +1,10 @@
 import {useParams} from 'react-router-dom'   
-import {useReducer, useEffect} from 'react'  
+import {useReducer, useEffect, useContext} from 'react'  
 import axios from 'axios'
 import Rating from '../components/Rating' 
 import { Helmet } from 'react-helmet-async'
 import { getError } from '../utils/Error'
+import { Store } from '../store'
 
 const reducer = (state, action) => {
     switch(action.type) {
@@ -37,6 +38,13 @@ const Productscreen = ({rating, numReviews}) => {
 fetchData()
   }, [slug])
 
+  const {dispatch: cxtDispatch } = useContext(Store)   
+  
+  
+  
+const addToCartHandler = () => {
+cxtDispatch({type: "CART_ADD_ITEM", payload: {...product, quantity: 1}})
+}
 
 
     return (
@@ -72,7 +80,7 @@ loading ? <h1>Loading...</h1> : error ?
      <button className="bg-green-600 p-1 rounded-md mt-2 text-white">In Stock</button> : 
       <button className="bg-red-600 p-1 rounded-md mt-2 text-white">Unavailable</button> }
 </div> 
-<button className="w-full bg-[black] hover:bg-[green] text-white h-8 mt-3 rounded-md">Add to Cart</button>
+<button onClick={addToCartHandler}  className="w-full bg-[green] hover:bg-[black] text-white h-8 mt-3 rounded-md">Add to Cart</button>
 </div> 
 </div>
 )

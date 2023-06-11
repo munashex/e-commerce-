@@ -11,11 +11,11 @@ const Product = ({product}) => {
   
       <div className="p-3"> 
       <Link to={`/product/${product.slug}`}>
-      <p className="underline font-semibold decoration-[blue] text-[blue]">{product.name}</p>  
+      <p className="underline font-semibold decoration-[green] text-[green]">{product.name}</p>  
       </Link> 
       <Rating rating={product.rating} numReviews={product.numReviews}/>
        <p>$ <strong>{product.price}</strong></p> 
-       <button className="bg-[blue] text-white mt-2  hover:bg-sky-300 hover:text-black p-1">Add to cart</button>
+       <button className="bg-[green] text-white mt-2  hover:bg-[black] hover:text-white p-1">Add to cart</button>
       </div> 
   
       </div>
