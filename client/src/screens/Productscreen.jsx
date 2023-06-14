@@ -5,6 +5,7 @@ import Rating from '../components/Rating'
 import { Helmet } from 'react-helmet-async'
 import { getError } from '../utils/Error'
 import { Store } from '../store'
+import { useNavigate } from 'react-router-dom'
 
 const reducer = (state, action) => {
     switch(action.type) {
@@ -20,6 +21,7 @@ const reducer = (state, action) => {
   }
 
 const Productscreen = ({rating, numReviews}) => { 
+  const navigate  = useNavigate()
     const params = useParams() 
     const {slug} = params 
 
@@ -43,8 +45,8 @@ fetchData()
   const {cart} = state
   
 const addToCartHandler = async() => {
-  const existItem = cart.cartItems.find((x) => x._id === product._id)  
-  const quantity = existItem ? existItem.quantity + 1 : 1 
+  const existItem =  cart?.cartItems.find((x) => x._id === product._id)  
+  const quantity = existItem ? existItem?.quantity + 1 : 1 
 
   const {data} = await axios.get(`http://localhost:3000/api/products/${product._id}`) 
   if(data.countInStock <  quantity) {
@@ -52,7 +54,8 @@ const addToCartHandler = async() => {
  return
   }
 
-cxtDispatch({type: "CART_ADD_ITEM", payload: {...product, quantity: 1}})
+cxtDispatch({type: "CART_ADD_ITEM", payload: {...product, quantity}}) 
+navigate('/cart')
 }
 
 
