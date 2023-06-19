@@ -8,7 +8,7 @@ const Cart = () => {
   
 
     const navigate = useNavigate()
-    const {state: {cart: {cartItems}}, dispatch} = useContext(Store)
+    const {state: {cart: {cartItems}, userInfo}, dispatch} = useContext(Store)
     
  
 
@@ -24,7 +24,11 @@ const Cart = () => {
      
     
    const checkoutHandler = () => {
-    navigate('/signin?redirect=/shipping')
+     if(userInfo) {
+        navigate('/shipping')
+     }else {
+        navigate('/signin')
+     }
    } 
 
 
@@ -70,9 +74,7 @@ const Cart = () => {
                                 <i className="fas fa-minus"></i>
                             </button>  
 
-                            <button onClick={() => removeProduct(product)}> 
-                                <i className="fas fa-trash"></i>
-                            </button>
+                        
                         </div>
                         )
                     })

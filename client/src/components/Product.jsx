@@ -21,6 +21,8 @@ const Product = ({product}) => {
         dispatch({type: 'CART_ADD_ITEM', payload: {...product, quantity}})
        }
 
+      
+
     return (
         <div  className="border border-slate-300">
         <Link to={`/product/${product.slug}`}>
