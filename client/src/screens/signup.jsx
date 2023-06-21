@@ -6,12 +6,14 @@ import { Store } from "../store"
 import {toast } from 'react-toastify';
 
 
-const Signin = () => { 
+const Signup = () => { 
 
 
 
   const [email, setEmail] = useState('') 
   const [password, setPassword] = useState('') 
+  const [name, setName] = useState('') 
+  const [confirmPassword, setConfirmPassword] = useState('')
 
   const navigate = useNavigate()
   const {_, dispatch} = useContext(Store)  
@@ -20,9 +22,14 @@ const Signin = () => {
 
  
   const handleSubmit = async(e) => {
-  e.preventDefault() 
+  e.preventDefault()  
+  if(name !== confirmPassword) {
+    toast.error('password do not  match') 
+    return
+  }
   try {
-const {data} = await axios.post(`http://localhost:3000/api/users/signin`, {
+const {data} = await axios.post(`http://localhost:3000/api/users/signup`, { 
+  name,
   email, 
   password
 })
@@ -37,14 +44,22 @@ navigate('/shipping')
     return (
         <div>
       <Helmet>
-        <title>Signin</title>
+        <title>Signup</title>
       </Helmet> 
        <div className="mt-8">
-        <h1 className="font-semibold text-xl text-center">Sign In</h1>  
+        <h1 className="font-semibold text-xl text-center">Sign Up</h1>  
        
         <form className="flex flex-col mx-auto w-[80%] lg:w-[50%]" onSubmit={handleSubmit}> 
+          
+        <label htmlFor="email">Name</label> 
+        <input id="email" type="text"   
+        className="border h-9 border-slate-300 outline-[green]" 
+        required 
+        onChange={(e) => setName(e.target.value)}
+        />  
 
-        <label htmlFor="email">Email</label> 
+
+        <label htmlFor="email" className="mt-5">Email</label> 
         <input id="email" type="text"   
         className="border h-9 border-slate-300 outline-[green]" 
         required 
@@ -57,11 +72,19 @@ navigate('/shipping')
          required  
          onChange={(e) => setPassword(e.target.value)}
         />  
+
+      <label htmlFor="confirm-password" className="mt-5">Confirm Password</label> 
+        <input id="confirm-password" type="text"   
+        className="border h-9 border-slate-300 outline-[green]" 
+        required 
+        onChange={(e) => setConfirmPassword(e.target.value)}
+        />  
+
         <button  type="submit" className="bg-[green] mt-5 h-9 text-white hover:bg-black">Sign In</button>
         </form>  
 
-        <h1 className="mt-5 text-center font-semibold">New Customer? {""}  
-        <Link to="/signup" className="text-[blue] underline">create your account</Link>
+        <h1 className="mt-5 text-center font-semibold">Already have an account? {""}  
+        <Link to="/signin" className="text-[blue] underline">Sign-In</Link>
            </h1>
 
        </div>
@@ -69,4 +92,4 @@ navigate('/shipping')
     )
 } 
 
-export default Signin
+export default Signup

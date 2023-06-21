@@ -5,7 +5,8 @@ import Rating from '../components/Rating'
 import { Helmet } from 'react-helmet-async'
 import { getError } from '../utils/Error'
 import { Store } from '../store'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom' 
+import {toast} from 'react-toastify'
 
 const reducer = (state, action) => {
     switch(action.type) {
@@ -50,7 +51,7 @@ const addToCartHandler = async() => {
 
   const {data} = await axios.get(`http://localhost:3000/api/products/${product._id}`)  
   if(data.countInStock <  quantity) {
- window.alert('Sorry . Product is out of Stock') 
+ toast.error('Sorry . Product is out of Stock') 
  return
   }
 

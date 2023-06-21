@@ -1,9 +1,10 @@
-POST  http://localhost:3000/api/users/signin
+POST  http://localhost:3000/api/users/signup
 Content-Type: "application/json" 
 
 {
-    "email": "tinashe@gmail.com", 
-    "password": "munashe"
+    "name": "madhuna",
+    "email": "madhuna@gmail.com", 
+    "password": "madhuna"
 }
 
 

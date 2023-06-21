@@ -9,7 +9,8 @@ const ShippingAdress = () => {
     const navigate = useNavigate()
         
     const {dispatch, state: {cart}} = useContext(Store) 
-    const {shippingAddress} = cart
+    const {shippingAddress} = cart 
+    
 
 
 

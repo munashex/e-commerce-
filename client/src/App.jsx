@@ -1,14 +1,19 @@
-import {BrowserRouter, Routes, Route, Link} from 'react-router-dom'
+import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import Homescreen from "./screens/Homescreen" 
 import Productscreen from "./screens/Productscreen"
 import { Store } from './store'
 import { useContext } from 'react' 
 import Cart from './screens/Cart' 
 import Signin from './screens/Signin'
-import Navbar from './components/Navbar'
+import Navbar from './components/Navbar' 
+import Signup from './screens/signup'
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import ShippingAdress from './screens/ShippingAddress'
+import ShippingAdress from './screens/ShippingAddress'  
+import Payment from './screens/Payment' 
+import PlaceOrder from './screens/Placeorder'
+
+
 const App = () => { 
   const {state} = useContext(Store) 
 
@@ -29,7 +34,10 @@ const App = () => {
     <Route path="/product/:slug" element={<Productscreen/>}/> 
     <Route path="/cart" element={<Cart/>}/> 
     <Route path="/signin" element={<Signin/>}/> 
-    <Route path="shipping" element={<ShippingAdress/>}/>
+    <Route path="shipping" element={<ShippingAdress/>}/> 
+    <Route path="/signup" element={<Signup/>}/> 
+    <Route path="/payment" element={<Payment/>}/> 
+    <Route path="/placeorder" element={<PlaceOrder/>}/>
   </Routes>
  
 </main>

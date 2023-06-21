@@ -17,6 +17,8 @@ const Navbar = () => {
      dispatch({type: 'USER_SIGNOUT'}) 
      localStorage.removeItem('userInfo') 
      localStorage.removeItem('shippingAddress')
+     localStorage.removeItem('paymentMethod') 
+     localStorage.removeItem('cartItems')
     }
 
     const [isOpen, setIsOpen] = useState(false)  
@@ -104,4 +106,4 @@ const Navbar = () => {
     )
 } 
 
-export default Nav
+export default Navbar 
