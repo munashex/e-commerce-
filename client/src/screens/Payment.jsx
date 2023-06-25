@@ -1,4 +1,4 @@
-import {useState, useEffect, useContext} from 'react' 
+import {useState, useContext} from 'react' 
 import {Store} from '../store'
 import CheckOutSteps from '../components/checkOutSteps' 
 import { Helmet } from 'react-helmet-async' 
@@ -11,9 +11,7 @@ const Payment = () => {
     const {shippingAddress, paymentMethod} = cart  
     const [paymentMethodName, setPaymentMethod] = useState(paymentMethod || 'PayPal')
 
-    useEffect(() =>{
-    !shippingAddress.address && navigate('/shipping')
-    }, [navigate, shippingAddress])
+    
 
     const submitHandler = (e) => {
       e.preventDefault() 

@@ -35,39 +35,36 @@ const {shippingAddress, paymentMethod, cartItems, userInfo} = cart
 
 
 
-useEffect(() => {
-    if(cartItems.length === 0) {
-        navigate('/cart')
-        return 
-    }
-    }, [navigate, cartItems])
+
 
 const totalPrice = cartItems.reduce((a, c) => a + c.quantity * c.price, 0) 
 const totalQ = cartItems.reduce((a, c) => a + c.quantity, 0) 
-const  tax =  totalQ + (totalPrice / 15)
+const  taxPrice =  totalQ + (totalPrice / 15)
 const shipping = totalPrice < 10 ? 0 : 10  * totalQ
 const orderTotal = totalPrice + tax  + shipping
 
 const PlaceorderHandler = async () => {
 try{
 dispatch({type: 'CREATE_REQUEST'}) 
-const {data} = await axios.post('/api/orders', {
+const {data} = await axios.post('http://localhost:3000/api/orders', {
     orderItems: cartItems, 
     shippingAddress: shippingAddress, 
     paymentMethod: paymentMethod, 
     itemsPrice: Math.round(orderTotal), 
     shippingPrice: Math.round(shipping), 
-    taxPrice: Math.round(tax), 
+    taxPrice: Math.round(taxPrice), 
     totalPrice: Math.round(totalPrice)
 },{
     headers: {
         Authorization: `Bearer ${userInfo.token}`
     }
 })
-ctxDispatch({type: 'CART_CLEAR'}) 
-dispatch({type: 'CREATE_SUCCESS'}) 
-localStorage.removeItem('cartItems') 
-navigate(`/order/${data.order._id}`)
+
+
+ctxDispatch({ type: 'CART_CLEAR' });
+dispatch({ type: 'CREATE_SUCCESS' });
+localStorage.removeItem('cartItems');
+navigate(`/order/${data.order._id}`);
 }catch(err) {
     dispatch({type: 'CREATE_FAIL'}) 
     toast.error(getError(err))
@@ -147,7 +144,7 @@ return (
 
           <div className="flex justify-between"> 
             <h1>Tax</h1> 
-            <h1>${Math.round(tax)}</h1>
+            <h1>${Math.round(taxPrice)}</h1>
           </div> 
 
           <div className="flex justify-between"> 
@@ -165,7 +162,7 @@ return (
           <button className="bg-[green] text-white rounded-md hover:bg-black mt-2 p-1"
           onClick={PlaceorderHandler} 
           >
-          {loading ? 'Loaing...': 'Place Order'}
+          {loading ? 'Loading...': 'Place Order'}
           </button>
           
          </div>  
